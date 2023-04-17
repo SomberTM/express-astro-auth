@@ -1,0 +1,27 @@
+<div></div>
+
+<script>
+	const urlSearchParams = new URLSearchParams(window.location.search);
+	const params = Object.fromEntries(urlSearchParams.entries());
+	const [rawEmail, rawCode] = (params.i as string).split(".");
+	const [email, code] = [atob(rawEmail), atob(rawCode)]
+	const response = await fetch(`http://localhost:7777/auth/login/${code}`, {
+		method: "POST",
+		mode: "cors",
+		body: JSON.stringify({ email }),
+		credentials: "include",
+		headers: {
+			"Content-Type": "application/json"
+		}
+	})
+
+	const d = await response.json()
+	console.log(d)
+
+	if (response.ok) {
+		window.location.href = "/"
+	} else {
+		const data = await response.json()
+		window.location.href = `/auth/login?error=${data.error}`
+	}
+</script>
