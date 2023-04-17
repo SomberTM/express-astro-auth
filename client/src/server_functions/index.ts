@@ -3,12 +3,16 @@ import type { AstroCookies } from "astro"
 type User =
 	| {
 			isLoggedIn: true
-			id: string
-			email: string
+			user: {
+				id: string
+				email: string
+			}
+			loginErrorReason: undefined
 	  }
 	| {
 			isLoggedIn: false
-			reason: string
+			user: undefined
+			loginErrorReason: string
 	  }
 
 export async function getCurrentUser(cookies: AstroCookies): Promise<User> {
@@ -27,10 +31,18 @@ export async function getCurrentUser(cookies: AstroCookies): Promise<User> {
 	const data = await response.json()
 
 	if (response.ok) {
-		const user: User = { ...data.user, isLoggedIn: true }
+		const user: User = {
+			user: data.user,
+			isLoggedIn: true,
+			loginErrorReason: undefined,
+		}
 		return user
 	} else {
-		const user: User = { reason: data.reason, isLoggedIn: false }
+		const user: User = {
+			user: undefined,
+			loginErrorReason: data.reason,
+			isLoggedIn: false,
+		}
 		return user
 	}
 }

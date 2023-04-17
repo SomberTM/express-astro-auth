@@ -1,6 +1,13 @@
+---
+import { getCurrentUser } from "../server_functions";
+
+const { isLoggedIn } = await getCurrentUser(Astro.cookies)
+---
+
 <nav class="flex h-16 border-b border-white">
     <ul>
         <a href="/">Home</a>
-        <a href="/auth/login">Login</a>
+        {isLoggedIn && <a href="/auth/logout">Logout</a>}
+        {!isLoggedIn && <a href="/auth/login">Login</a>}
     </ul>
 </nav>

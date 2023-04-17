@@ -219,7 +219,6 @@ export const completeLogin: ExpressRouteController<
 };
 
 export const logout: AuthedRequestHandler = (req, res) => {
-  console.log(req.user);
-
+  res.clearCookie("jwt");
   res.status(200).send();
 };

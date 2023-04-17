@@ -61,7 +61,7 @@ const Login: React.FC = () => {
 				Login
 			</button>
 			{outgoingLoginReq && (
-				<div>
+				<div className="flex flex-col">
 					<label htmlFor="code-input">Code: </label>
 					<input
 						className="border-2 border-white bg-black p-2 outline-none"

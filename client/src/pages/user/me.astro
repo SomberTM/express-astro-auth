@@ -2,21 +2,21 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCurrentUser } from "../../server_functions";
 
-const user = await getCurrentUser(Astro.cookies)
+const { user, isLoggedIn, loginErrorReason } = await getCurrentUser(Astro.cookies)
 ---
 
-{user.isLoggedIn &&
+{isLoggedIn &&
 <Layout title={`User ${user.email}`}>
     <div>
         {JSON.stringify(user, null, 2)}
     </div>
 </Layout>}
 
-{!user.isLoggedIn &&
+{!isLoggedIn &&
 <Layout title="No user found!">
     <div>
         <div>
-            Error: {user.reason}
+            Error: {loginErrorReason}
         </div>
         Login to view your profile   
     </div>

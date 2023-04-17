@@ -1,15 +1,15 @@
 ---
-import Login from "../../../components/Login";
+import Logout from "../../../components/Logout";
 import Layout from "../../../layouts/Layout.astro"
 import { getCurrentUser } from "../../../server_functions";
 
 const { isLoggedIn } = await getCurrentUser(Astro.cookies)
 
-if (isLoggedIn)
-    return Astro.redirect("/auth/logout")
+if (!isLoggedIn)
+   return Astro.redirect("/auth/login")
 
 ---
 
-<Layout title="Login">
-    <Login client:only />
+<Layout title="Logout">
+   <Logout client:only />
 </Layout>
