@@ -1,5 +1,5 @@
 const sendLogoutReq = async () => {
-	const response = await fetch("http://localhost:7777/auth/logout", {
+	await fetch("http://localhost:7777/auth/logout", {
 		method: "GET",
 		mode: "cors",
 		credentials: "include",
@@ -7,9 +7,6 @@ const sendLogoutReq = async () => {
 			"Content-Type": "application/json",
 		},
 	})
-
-	const data = await response.json()
-	return data
 }
 
 const Logout: React.FC = () => {
