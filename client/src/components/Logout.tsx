@@ -1,5 +1,5 @@
-const sendLogoutReq = async () => {
-	await fetch("http://localhost:7777/auth/logout", {
+const sendLogoutReq = async (): Promise<boolean> => {
+	const response = await fetch("http://localhost:7777/auth/logout", {
 		method: "GET",
 		mode: "cors",
 		credentials: "include",
@@ -7,6 +7,7 @@ const sendLogoutReq = async () => {
 			"Content-Type": "application/json",
 		},
 	})
+	return response.ok
 }
 
 const Logout: React.FC = () => {
@@ -14,8 +15,8 @@ const Logout: React.FC = () => {
 		<div className="flex flex-col items-center">
 			<button
 				onClick={async () => {
-					await sendLogoutReq()
-					window.location.href = "/"
+					const success = await sendLogoutReq()
+					if (success) window.location.href = "/"
 				}}
 			>
 				Logout
